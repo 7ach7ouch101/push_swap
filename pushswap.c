@@ -1,10 +1,8 @@
 #include<stdio.h>
 #include<unistd.h>
 #include<stdlib.h>
-struct Node {
-    int data;
-    struct Node* next;
-}Node;
+#include "push_swap.h"
+
 long	ft_atoi(char *str)
 {
 	int neg;
@@ -42,6 +40,7 @@ int	ft_strcmp(char *s1, char *s2)
 }
 static  int ft_isdigit(char *av, int ac)
 {
+    (void)ac;
     int i;
 
     i = 0;
@@ -104,19 +103,54 @@ struct Node *fillnodes(struct Node *head, char *av1, char *av2)
     struct Node *sec;
     if(head->next == NULL)
     {
-        head->data = ft_atoi(av1);
-        head->next = NULL;
+        (head->data) = ft_atoi(av1);
+        (head->next) = NULL;
     }
     sec = malloc(sizeof(Node));
     sec->data = ft_atoi(av2);
     sec->next = head;
     return sec;
 }
+void    sort_three(struct Node **a)
+{
+    if((*a)->data > (*a)->next->data && (*a)->next->data < (*a)->next->next->data)
+        sa(*a);
+    else if((*a)->data > (*a)->next->data && (*a)->data > (*a)->next->next->data)
+    {
+        if((*a)->next->data > (*a)->next->next->data)
+        {
+            sa(*a);
+            rra(&*(a));
+        }
+        else
+            ra(&*(a));
+    }
+    else if((*a)->data < (*a)->next->data && (*a)->data < (*a)->next->next->data)
+    {
+        sa(*a);
+        ra(&*(a));
+    }
+    else
+        rra(&*(a));
+}
+int lstsize(struct Node *a)
+{
+    int i;
+
+    i = 0;
+    while(a->next)
+    {
+        i++;
+        a = a->next;
+    }
+    return i;
+}
 int main(int ac, char **av)
 {
-    struct Node *a = NULL;
     int i;
+    struct Node *a;
     a = malloc(sizeof(Node));
+    a->next = NULL;
     i = (ac - 1);
 
     if(!check_error(ac,av) || is_dup(av,ac) || check_int(av,ac))
@@ -127,10 +161,15 @@ int main(int ac, char **av)
     ac--;
     while(i > 0)
         a = fillnodes(a,av[ac],av[i--]);
-    while(a)
-    {
-        printf("%d",a->data);
-        a->next;
-    }
+    while(a->next)
+	{
+		printf("stack a after===>%d\n",a->data);
+		a = a->next;
+	}
+    //ra(&a);
+    // if(lstsize(a) == 3)
+    //     sort_three(&a);
+    // else if(lstsize(a) == 5)
+    //     sort_
     return 0;
 }
