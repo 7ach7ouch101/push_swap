@@ -7,14 +7,9 @@ void	ra(struct Node **a)
 
     tmp = *a;
     tmp2 = tmp->next;
-    while(tmp2->next)
-        tmp2 = tmp2->next;
-    tmp2->next = tmp;
-    tmp->next = NULL;
+    while((*a)->next)
+        *a = (*a)->next;
+    (*a)->next = tmp;
+    (*a)->next->next = NULL;
     *a = tmp2;
-	while(3)
-	{
-		printf("stack a after===>%d\n",(*a)->data);
-		(*a) = (*a)->next;
-	}
 }
