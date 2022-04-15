@@ -138,7 +138,7 @@ int lstsize(struct Node *a)
     int i;
 
     i = 0;
-    while(a->next)
+    while(a)
     {
         i++;
         a = a->next;
@@ -159,17 +159,19 @@ int main(int ac, char **av)
         return 0;
     }
     ac--;
-    while(i > 0)
-        a = fillnodes(a,av[ac],av[i--]);
-    while(a->next)
+    while((i - 1) > 0)
+    {
+        i--;
+        a = fillnodes(a,av[ac],av[i]);
+    }
+    if(lstsize(a) == 3)
+        sort_three(&a);
+    else if(lstsize(a) == 5)
+        
+    while(a)
 	{
 		printf("stack a after===>%d\n",a->data);
 		a = a->next;
 	}
-    //ra(&a);
-    // if(lstsize(a) == 3)
-    //     sort_three(&a);
-    // else if(lstsize(a) == 5)
-    //     sort_
     return 0;
 }
