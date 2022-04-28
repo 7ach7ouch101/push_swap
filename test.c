@@ -156,7 +156,6 @@ struct Node *fillnodes(struct Node *head, char *av1, char *av2)
     sec->next = head;
     return sec;
 }
-
 void    fill_array(struct Node *a, int *str)
 {
     int i;
@@ -189,60 +188,49 @@ void    fill_array(struct Node *a, int *str)
         j++;
     }
 }
-int is_sorted(struct Node *a)
+int	big_instack(struct Node *b)
 {
-    while(a->next)
-    {
-        if(a->data < a->next->data)
-            a = a->next;
-        else
-            return 0;
-    }
-    return 1;
-}
-int get_indexofmin(struct Node *a)
-{
-    int index;
-    int tmp;
-    int i;
+	int	tmp;
 
-    tmp = a->data;
-    index = 0;
-    i = 0;
-    while(a)
-    {
-        if(a->next)
-        {
-            if(tmp > a->next->data)
-            {
-                tmp = a->next->data;
-                index = (i + 1);
-            }
-        }
-        a = a->next;
-        i++;
-    }
-    return index;
+	tmp = (b)->data;
+	while (b)
+	{
+		if (tmp < (b)->data)
+			tmp = (b)->data;
+		b = (b)->next;
+	}
+	return (tmp);
+}
+int	check_for_location(int size, struct Node *b)
+{
+	size = size / 2;
+	while (size && b)
+	{
+		if (b->data == big_instack(b))
+			return (1);
+		b = (b)->next;
+		size--;
+	}
+	return (0);
 }
 void    sort_b(struct Node **a, struct Node **b)
 {
-    int index;
-
-    while(!is_sorted(*b))
-    {
-        index = get_indexofmin(*b);
-        if(index <= (lstsize(*b) / 2))
-            while(index)
-            {
-                rb(&*(b));
-                index--;
-            }
-        else
-            rrb(&*(b));
-        pa(&*(a),&*(b));
-    }
-    while((*b)->next)
-        pa(&*(a),&*(b));
+	if (check_for_location(lstsize(*b), *b) == 1)
+	{
+		if ((*b)->data == big_instack(*b))
+			pa(&*(a),&*(b));
+		else if ((*b)->next->data == big_instack(*b))
+		{
+			sb(*(b));
+			pa(&*(a),&*(b));
+		}
+		else
+			rb(&*(b));
+	}
+	else if ((*b)->next == NULL)
+		pa(&*(a),&*(b));
+	else
+		rrb(&*(b));
 }
 void    above_five(struct Node **a, struct Node **b)
 {
@@ -257,7 +245,6 @@ void    above_five(struct Node **a, struct Node **b)
         var1 = str[lstsize(*a) / 3];
         var2 = str[(lstsize(*a) / 3) / 2];
         if((*a)->data <= var1)
-        {
             if((*a)->data <= var2)
             {
                 pb(&*(a),&*(b));
@@ -265,12 +252,12 @@ void    above_five(struct Node **a, struct Node **b)
             }
             else
                 pb(&*(a),&*(b));
-        }
         else
             ra(&*(a));
         free(str);
     }
-    //sort_b(&*(a),&*(b));
+    while((*b)->next)
+        sort_b(&*(a),&*(b));
 }
 int     main(int ac, char **av)
 {
@@ -292,13 +279,11 @@ int     main(int ac, char **av)
         i--;
         a = fillnodes(a,av[ac],av[i]);
     }
-
     above_five(&a,&b);
-
-    while(b)
-	{
-		printf("stack b after===>%d\n",b->data);
-		b = b->next;
-	}
+    // while(a)
+	// {
+	// 	printf("stack a after===>%d\n",a->data);
+	// 	a = a->next;
+	// }
 
 }
