@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -c
 
 RM = rm -f
 
-SRCS = pushswap.c ./moves/sa.c ./moves/pa.c ./moves/rra.c ./moves/ra.c\
+SRCS = push_swap.c sa.c pa.c rra.c ra.c sb.c pb.c rrb.c rb.c\
 
 OBJS = $(SRCS:.c=.o)
 
