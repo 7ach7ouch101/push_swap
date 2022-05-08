@@ -3,6 +3,74 @@
 #include<stdlib.h>
 #include "push_swap.h"
 #include<string.h>
+static int	words(const char *str, char c)
+{
+	int	i;
+	int	u;
+
+	i = 0;
+	u = 0;
+	while (str[i] != '\0')
+	{
+		if ((str[i] != c && str[i + 1] == c)
+			|| (str[i + 1] == '\0' && str[i] != c))
+			u++;
+		i++;
+	}
+	return (u);
+}
+static void	*freee(char **p)
+{
+	int	i;
+
+	i = 0;
+	while (p[i])
+	{
+		free(p[i]);
+		i++;
+	}
+	free(p);
+	return (NULL);
+}
+static	char	**fillarr(char **p, const char *s, char c)
+{
+	int	j;
+	int	e;
+
+	e = 0;
+	while (*s)
+	{
+		j = 0;
+		while (s[j] != c && s[j] != '\0')
+			j++;
+		if (j > 0)
+		{
+			p[e] = (char *)malloc((j + 1) * sizeof(char));
+			if (!p)
+				return (freee(p));
+			memcpy(p[e], s, j);
+			p[e][j] = '\0';
+			e++;
+			s = s + j;
+		}
+		else
+			s++;
+	}
+	p[e] = NULL;
+	return (p);
+}
+char	**ft_split(const char *s, char c)
+{
+	char	**p;
+
+	if (!s)
+		return (NULL);
+	p = (char **)malloc(((words(s, c) + 1) * sizeof(char *)));
+	if (!p)
+		return (NULL);
+	p = fillarr(p, s, c);
+	return (p);
+}
 static	char	*merge(char *s1, char *s2, char *p)
 {
 	int	i;
@@ -88,50 +156,40 @@ int	ft_strcmp(char *s1, char *s2)
 		i++;
 	return ((unsigned char) s1[i] - (unsigned char) s2[i]);
 }
-static  int ft_isdigit(char *input)
-{
-    int i;
-
-    i = 0;
-    if(input[i] == '-')
-    {
-        i++;
-    }
-    
-	while (input[i] != '\0')
-    {
-        if(input[i] >= '0' && input[i] <= '9')
-            i++;
-        else
-            return 0;
-    }
-    return 1;
-}
-int check_error(char *input)
-{
-    int i;
-
-    i = 0;
-    while(input[i] != '\0')
-    {
-        if(input[i] )
-            return 0;
-        i++;
-    }
-    return (1);
-}
-int is_dup(int ac, char *input)
+int check_error(char **input)
 {
     int i;
     int j;
 
-    i = 1;
-    while(i < ac)
+    i = 0;
+	while(input[i] != '\0')
+	{
+        j = 0;
+        if(input[i][j] == '-' || input[i][j] == '+')
+            j++;
+        while(input[i][j] != '\0')
+        {
+            if(input[i][j] >= '0' && input[i][j] <= '9')
+               j++;     
+            else
+                return 0;
+        }
+        i++;
+	}
+    return (1);
+}
+int is_dup(char **input)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while(input[i] != '\0')
     {
         j = i + 1;
-        while (j < ac)
+        while(input[j] != '\0')
         {
-            if(ft_strcmp(&input[i],&input[j]) == 0)
+            if(ft_strcmp(input[i],input[j]) == 0)
                 return 1;
             j++;
         }
@@ -139,48 +197,38 @@ int is_dup(int ac, char *input)
     }
     return 0;
 }
-int check_int(int ac, char *input)
+int check_int(char **input)
 {
     int i;
 
-    i = 1;
-    while(i < ac)
+    i = 0;
+    while(input[i] != '\0')
     {
-        if(ft_atoi(&input[i]) > 2147483647 || ft_atoi(&input[i]) < -2147483648)
+        if(ft_atoi(input[i]) > 2147483647 || ft_atoi(input[i]) < -2147483648)
             return 1;
         i++;
     }
     return 0;
 }
-struct Node *fillnodes(struct Node *head, char *av2)
-{
-    struct Node *sec;
-    sec = malloc(sizeof(Node));
-    sec->data = ft_atoi(av2);
-    sec->next = head;
-    return sec;
-}
 void    sort_three(struct Node **a)
 {
-    if((*a)->data > (*a)->next->data && (*a)->next->data < (*a)->next->next->data)
-        sa(*a);
-    else if((*a)->data > (*a)->next->data && (*a)->data > (*a)->next->next->data)
-    {
+    if((*a)->data > (*a)->next->data)
         if((*a)->next->data > (*a)->next->next->data)
         {
             sa(*a);
             rra(&*(a));
         }
-        else
+        else if((*a)->data > (*a)->next->next->data)
             ra(&*(a));
-    }
-    else if((*a)->data < (*a)->next->data && (*a)->data < (*a)->next->next->data)
+        else
+            sa(*a);
+    else if((*a)->data > (*a)->next->next->data)
+        rra(&*(a));
+    else
     {
         sa(*a);
         ra(&*(a));
     }
-    else
-        rra(&*(a));
 }
 int indexofmin(struct Node *a)
 {
@@ -327,57 +375,115 @@ void    freelist(struct Node **a, struct Node **b)
 void printnode(struct Node *s, char c)
 {
     while(s)
-        {
-            printf("stack %c after===>%d\n", c,s->data);
-            s = s->next;
-        }
+    {
+        printf("stack %c after===>%d\n", c,s->data);
+        s = s->next;
+    }
 }
-char    *parse(int ac, char **av)
+struct Node *fillnodes(struct Node **head, char *str)
 {
-    char *tmp;
+    struct Node *sec;
+    sec = malloc(sizeof(Node));
+    sec->data = ft_atoi(str);
+    sec->next = (*head);
+    return sec;
+}
+char *join_str(int ac, char**av)
+{
+    char *str;
     int j;
+
     j = 2;
     ac--;
-	tmp = ft_strjoin(av[1], " ");
-    while(ac)
+	str = ft_strjoin(av[1], " ");
+    while(ac--)
     {
-        tmp = ft_strjoin(tmp,av[j]);
-        ac--;
+        str = ft_strjoin(str,av[j]);
 		if(ac == 1)
 		{
-			tmp = ft_strjoin(tmp, "\0");
+			str = ft_strjoin(str, "\0");
 			break ;
 		}
-		tmp = ft_strjoin(tmp," ");
+		str = ft_strjoin(str," ");
         j++;
     }
-    return tmp;
+    return str;
 }
-int main(int ac, char **av)
+int ft_strlen(char **str)
 {
-    //int i;
-    char *str;
-    struct Node *a;
-    struct Node *b;
-    b = NULL;
-    a = NULL;
-    //i = (ac - 1);
-    str = parse(ac,av);
+    int i;
 
-    if(!check_error(ac,str) || is_dup(ac,str) || check_int(ac,str))
+    i = 0;
+    while(str[i] != '\0')
+        i++;
+    i--;
+    return i;
+}
+
+int    parse(int ac, char **av,struct Node **a)
+{
+    char *str;
+    char **str1;
+    int i;
+
+    i = 0;
+    str = join_str(ac,av);
+    str1 = ft_split(str,' ');
+    i = ft_strlen(str1);
+    if(!check_error(str1) || is_dup(str1) || check_int(str1))
     {
         write(1, "Error\n", 6);
         return 0;
     }
-    /*while((i - 1) >= 0)
+    while(i >= 0)
     {
-        a = fillnodes(a, av[i]);
+        (*a) = fillnodes(&(*a),str1[i]);
         i--;
     }
-    if(lstsize(a) == 3)
+    return 1;
+}
+int is_sorted(struct Node *a)
+{
+    struct Node *tmp;
+
+    tmp = a;
+    a = a->next;
+    while(tmp < a->data)
+    {
+        if(a->next == NULL)
+        {
+
+        }
+        a = a->next;
+    }
+    return 0;
+}
+/*void    sort_five(struct Node **a, struct Node **b)
+{
+    pb(&*(a),&*(b));
+    pb(&*(a),&*(b));
+    sort_three(a);
+    while(!is_sorted(a))
+    {
+
+    }
+}*/
+int main(int ac, char **av)
+{
+    struct Node *a;
+    struct Node *b;
+
+    b = NULL;
+    a = NULL;
+    if(ac <= 2 || parse(ac,av,&a) == 0)
+        return 0;
+    printf("%d",is_sorted(a));
+    /*if(lstsize(a) == 3)
         sort_three(&a);
+    else if(lstsize(a) == 5)
+        sort_five(&a,&b);
     else
-    above_five(&a,&b);
+        above_five(&a,&b);
     printnode(a, 'a');
     freelist(&a,&b);*/
     return 0;
