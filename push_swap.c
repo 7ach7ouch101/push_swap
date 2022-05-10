@@ -324,33 +324,46 @@ void    sort_b(struct Node **a, struct Node **b)
 		pa(&*(a),&*(b));
 	else
 		rrb(&*(b));
-
 }
 void    above_five(struct Node **a, struct Node **b)
 {
     int var1;
     int var2;
     int *str;
+    int start;
+    int first;
 
     while(lstsize(*a) != 0)
     {
+        first = 0;
+        start = 1;
         str = malloc(lstsize(*a) * sizeof(int));
         fill_array(*a,str);
         var1 = str[lstsize(*a) / 3];
         var2 = str[(lstsize(*a) / 3) / 2];
-        if((*a)->data <= var1)
+        while(*a && (start || first != (*a)->data))
         {
-            if((*a)->data <= var2)
+            if((*a)->data <= var1)
             {
-                pb(&*(a),&*(b));
-                rb(&*(b));
+                if((*a)->data <= var2)
+                {
+                    pb(&*(a),&*(b));
+                    rb(&*(b));
+                }
+                else
+                    pb(&*(a),&*(b));
             }
             else
-                pb(&*(a),&*(b));
+            {
+                if(start)
+                {
+                    first = (*a)->data;
+                    start = 0;
+                }
+                ra(&*(a));
+            }
         }
-        else
-            ra(&*(a));
-        free(str);
+            free(str);
     }
     while((*b))
         sort_b(&*(a),&*(b));
@@ -442,7 +455,7 @@ int    parse(int ac, char **av,struct Node **a)
     }
     return 1;
 }
-int is_sorted(struct Node *a)
+/*int is_sorted(struct Node *a)
 {
     struct Node *tmp;
 
@@ -458,14 +471,13 @@ int is_sorted(struct Node *a)
     }
     return 0;
 }
-/*void    sort_five(struct Node **a, struct Node **b)
+void    sort_five(struct Node **a, struct Node **b)
 {
     pb(&*(a),&*(b));
     pb(&*(a),&*(b));
     sort_three(a);
     while(!is_sorted(a))
     {
-
     }
 }*/
 int main(int ac, char **av)
@@ -477,14 +489,14 @@ int main(int ac, char **av)
     a = NULL;
     if(ac <= 2 || parse(ac,av,&a) == 0)
         return 0;
-    printf("%d",is_sorted(a));
     /*if(lstsize(a) == 3)
         sort_three(&a);
     else if(lstsize(a) == 5)
         sort_five(&a,&b);
-    else
-        above_five(&a,&b);
-    printnode(a, 'a');
-    freelist(&a,&b);*/
+    else*/
+
+    above_five(&a,&b);
+    //printnode(a, 'a');
+    freelist(&a,&b);
     return 0;
 }
