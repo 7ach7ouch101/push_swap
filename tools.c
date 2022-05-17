@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tools.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/15 23:11:15 by mmeziani          #+#    #+#             */
+/*   Updated: 2022/05/16 21:59:10 by mmeziani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static int	words(const char *str, char c)
@@ -16,6 +28,7 @@ static int	words(const char *str, char c)
 	}
 	return (u);
 }
+
 static void	*freee(char **p)
 {
 	int	i;
@@ -29,6 +42,7 @@ static void	*freee(char **p)
 	free(p);
 	return (NULL);
 }
+
 static	char	**fillarr(char **p, const char *s, char c)
 {
 	int	j;
@@ -56,6 +70,7 @@ static	char	**fillarr(char **p, const char *s, char c)
 	p[e] = NULL;
 	return (p);
 }
+
 char	**ft_split(const char *s, char c)
 {
 	char	**p;
@@ -68,11 +83,12 @@ char	**ft_split(const char *s, char c)
 	p = fillarr(p, s, c);
 	return (p);
 }
+
 long	ft_atoi(char *str)
 {
-	int neg;
-	long num;
-	int i;
+	long	num;
+	int		neg;
+	int		i;
 
 	i = 0;
 	neg = 1;
@@ -93,22 +109,4 @@ long	ft_atoi(char *str)
 		i++;
 	}
 	return (num * neg);
-}
-
-void	*ft_memcpy(void	*dst, const void *src, size_t n)
-{
-	const char	*s;
-	char		*d;
-
-	d = dst;
-	s = src;
-	if (!src && !dst)
-		return (NULL);
-	while (n--)
-	{
-		*d = *s;
-		d++;
-		s++;
-	}
-	return (dst);
 }

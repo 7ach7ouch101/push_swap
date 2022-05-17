@@ -1,30 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rb.c                                               :+:      :+:    :+:   */
+/*   tools3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmeziani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/16 21:54:47 by mmeziani          #+#    #+#             */
-/*   Updated: 2022/05/16 21:56:05 by mmeziani         ###   ########.fr       */
+/*   Created: 2022/05/16 22:03:53 by mmeziani          #+#    #+#             */
+/*   Updated: 2022/05/16 22:04:07 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	rb(struct Node **b)
+void	*ft_memcpy(void	*dst, const void *src, size_t n)
 {
-	struct Node	*tmp;
-	struct Node	*tmp2;
+	const char	*s;
+	char		*d;
 
-	if (lstsize(*b) <= 1)
-		return ;
-	tmp = *b;
-	tmp2 = tmp->next;
-	while ((*b)->next)
-		*b = (*b)->next;
-	(*b)->next = tmp;
-	(*b)->next->next = NULL;
-	*b = tmp2;
-	write(1, "rb\n", 3);
+	d = dst;
+	s = src;
+	if (!src && !dst)
+		return (NULL);
+	while (n--)
+	{
+		*d = *s;
+		d++;
+		s++;
+	}
+	return (dst);
+}
+
+int	ft_strlen(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+		i++;
+	i--;
+	return (i);
 }
