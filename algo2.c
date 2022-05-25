@@ -6,13 +6,13 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 02:32:57 by mmeziani          #+#    #+#             */
-/*   Updated: 2022/05/15 03:18:53 by mmeziani         ###   ########.fr       */
+/*   Updated: 2022/05/22 00:20:32 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	big_instack(struct Node *b)
+int	big_instack(t_list *b)
 {
 	int	tmp;
 
@@ -26,7 +26,7 @@ int	big_instack(struct Node *b)
 	return (tmp);
 }
 
-int	check_for_location(int size, struct Node *b)
+int	check_for_location(int size, t_list *b)
 {
 	size = size / 2;
 	while (size && b)
@@ -39,7 +39,7 @@ int	check_for_location(int size, struct Node *b)
 	return (0);
 }
 
-void	push_to_b(struct Node **a, struct Node **b)
+void	push_to_b(t_list **a, t_list **b)
 {
 	if (check_for_location(lstsize(*b), *b) == 1)
 	{

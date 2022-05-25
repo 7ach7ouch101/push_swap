@@ -6,16 +6,16 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 21:12:38 by mmeziani          #+#    #+#             */
-/*   Updated: 2022/05/17 03:24:52 by mmeziani         ###   ########.fr       */
+/*   Updated: 2022/05/23 20:06:58 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ra(struct Node **a)
+void	ra(t_list **a)
 {
-	struct Node	*tmp;
-	struct Node	*tmp2;
+	t_list	*tmp;
+	t_list	*tmp2;
 
 	if (lstsize(*a) <= 1)
 		return ;
@@ -27,4 +27,6 @@ void	ra(struct Node **a)
 	(*a)->next->next = NULL;
 	*a = tmp2;
 	write(1, "ra\n", 3);
+	// free(tmp);
+	// free(tmp2);
 }

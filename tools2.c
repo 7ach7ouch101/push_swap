@@ -6,7 +6,7 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 22:33:10 by mmeziani          #+#    #+#             */
-/*   Updated: 2022/05/16 21:59:49 by mmeziani         ###   ########.fr       */
+/*   Updated: 2022/05/23 17:10:14 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (p);
 }
 
-int	lstsize(struct Node *a)
+int	lstsize(t_list *a)
 {
 	int	i;
 

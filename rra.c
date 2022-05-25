@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   rra.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeziani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 00:27:00 by mmeziani          #+#    #+#             */
-/*   Updated: 2022/05/16 21:58:24 by mmeziani         ###   ########.fr       */
+/*   Updated: 2022/05/22 00:20:32 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	rra(struct Node **a)
+void	rra(t_list **a)
 {
-	struct Node	*tmp2;
-	struct Node	*tmp;
+	t_list	*tmp2;
+	t_list	*tmp;
 
 	if (lstsize(*a) <= 1)
 	{

@@ -6,13 +6,13 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 22:30:30 by mmeziani          #+#    #+#             */
-/*   Updated: 2022/05/17 03:44:49 by mmeziani         ###   ########.fr       */
+/*   Updated: 2022/05/24 00:02:26 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	moves(char *move, struct Node **a, struct Node **b)
+void	moves(char *move, t_list **a, t_list **b)
 {
 
 	if (ft_strcmp(move, "sa\n") == 0)
@@ -44,8 +44,8 @@ void	moves(char *move, struct Node **a, struct Node **b)
 
 int	main(int ac, char **av)
 {
-	struct Node	*a;
-	struct Node	*b;
+	t_list	*a;
+	t_list	*b;
 	char		*buff;
 	int			ret;
 
@@ -67,8 +67,8 @@ int	main(int ac, char **av)
 		printf("stack  after===>%d\n",a->data);
 		a = a->next;
 	}
-	if(is_sorted(a))
-		write(1, "ok",2);
+	if(is_sorted(a) && lstsize(b) == 0)
+		write(1, "OK",2);
 	else
-		write(1, "ko", 2);
+		write(1, "KO", 2);
 }

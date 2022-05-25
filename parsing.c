@@ -6,7 +6,7 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 02:38:45 by mmeziani          #+#    #+#             */
-/*   Updated: 2022/05/15 22:19:10 by mmeziani         ###   ########.fr       */
+/*   Updated: 2022/05/25 01:41:31 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,44 +49,58 @@ int	check_int(char **input)
 char	*join_str(int ac, char**av)
 {
 	char	*str;
+	char *tmp;
 	int		j;
 
 	j = 2;
 	ac--;
 	str = ft_strjoin(av[1], " ");
+	tmp = str;
 	while (ac--)
 	{
-		str = ft_strjoin(str, av[j]);
+		//check(tmp);
+		str = ft_strjoin(tmp, av[j]);
+		free(tmp);
 		if (ac == 1)
 		{
+			tmp = str;
 			str = ft_strjoin(str, "\0");
+			free(tmp);
 			break ;
 		}
-		str = ft_strjoin(str, " ");
+		tmp = ft_strjoin(str, " ");
+		free(str);
 		j++;
 	}
 	return (str);
 }
 
-int	parse(int ac, char **av, struct Node **a)
+int	parse(int ac, char **av, t_list **a)
 {
 	char	*str;
 	char	**str1;
 	int		i;
 
+	//check(*av);
 	i = 0;
-	str = join_str(ac, av);
-	str1 = ft_split(str, ' ');
+	// if (ac == 2)
+	// 	str1 = ft_split(av[1], ' ');
+	// else
+	// {
+		str = join_str(ac, av);
+		str1 = ft_split(str, ' ');
+		free(str);
+	// }
 	i = ft_strlen(str1);
-	if (!check_error(str1) || is_dup(str1) || check_int(str1) || ac <= 2)
+	if (!check_error(str1) || is_dup(str1) || check_int(str1) || (ac <= 2 && i == 0))
 	{
-		write(1, "Error\n", 6);
-		return (0);
+    	write(2, "Error\n", 6);
+	    exit (1);
 	}
 	while (i >= 0)
 	{
 		(*a) = fillnodes(&(*a), str1[i]);
 		i--;
 	}
-	return (1);
+	return (freee(str1),1);
 }

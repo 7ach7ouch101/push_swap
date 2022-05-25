@@ -6,7 +6,7 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 23:11:15 by mmeziani          #+#    #+#             */
-/*   Updated: 2022/05/16 21:59:10 by mmeziani         ###   ########.fr       */
+/*   Updated: 2022/05/23 23:48:24 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	words(const char *str, char c)
 	return (u);
 }
 
-static void	*freee(char **p)
+void	*freee(char **p)
 {
 	int	i;
 

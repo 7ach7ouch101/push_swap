@@ -6,7 +6,7 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 02:49:56 by mmeziani          #+#    #+#             */
-/*   Updated: 2022/05/16 21:54:42 by mmeziani         ###   ########.fr       */
+/*   Updated: 2022/05/23 21:58:07 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	check_error(char **input)
 	return (1);
 }
 
-int	is_sorted(struct Node *a)
+int	is_sorted(t_list *a)
 {
 	int	data;
 
@@ -53,20 +53,20 @@ int	is_sorted(struct Node *a)
 	return (0);
 }
 
-struct	Node	*fillnodes(struct Node **head, char *str)
+t_list	*fillnodes(t_list **head, char *str)
 {
-	struct Node	*sec;
+	t_list	*sec;
 
-	sec = malloc(sizeof(Node));
+	sec = malloc(sizeof(t_list));
 	sec->data = ft_atoi(str);
 	sec->next = (*head);
 	return (sec);
 }
 
-void	freelist(struct Node **a, struct Node **b)
+void	freelist(t_list **a, t_list **b)
 {
-	struct Node	*tmp;
-	struct Node	*tmp1;
+	t_list	*tmp;
+	t_list	*tmp1;
 
 	while (*a)
 	{

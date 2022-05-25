@@ -1,25 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sb.c                                               :+:      :+:    :+:   */
+/*   p_error.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/15 22:11:27 by mmeziani          #+#    #+#             */
-/*   Updated: 2022/05/22 00:20:32 by mmeziani         ###   ########.fr       */
+/*   Created: 2022/05/23 23:37:27 by mmeziani          #+#    #+#             */
+/*   Updated: 2022/05/23 23:58:27 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	sb(t_list *b)
+void    p_error(void)
 {
-	int	data;
+    write(2, "Error\n", 6);
+	    exit (1);
+}
 
-	if (b->next == NULL)
-		return ;
-	data = b->data;
-	b->data = b->next->data;
-	b->next->data = data;
-	write(1, "sb\n", 3);
+void    check(char *s)
+{
+    int i;
+    int b;
+    
+    i = 0;
+    b = 0;
+    while (s[i])
+    {
+        if(s[i] >= '0' && s[i] <= '9')
+        {
+            b++;
+            break;
+        }
+        i++;
+    }
+    if (!b)
+        p_error();
 }

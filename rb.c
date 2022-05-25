@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   rb.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeziani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 21:54:47 by mmeziani          #+#    #+#             */
-/*   Updated: 2022/05/16 21:56:05 by mmeziani         ###   ########.fr       */
+/*   Updated: 2022/05/22 00:20:32 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	rb(struct Node **b)
+void	rb(t_list **b)
 {
-	struct Node	*tmp;
-	struct Node	*tmp2;
+	t_list	*tmp;
+	t_list	*tmp2;
 
 	if (lstsize(*b) <= 1)
 		return ;

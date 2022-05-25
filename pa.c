@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   pa.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeziani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 02:34:56 by mmeziani          #+#    #+#             */
-/*   Updated: 2022/05/14 02:38:38 by mmeziani         ###   ########.fr       */
+/*   Updated: 2022/05/22 00:20:32 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	pa(struct Node **a, struct Node **b)
+void	pa(t_list **a, t_list **b)
 {
-	struct Node	*tmp;
+	t_list	*tmp;
 
 	if ((*b) == NULL)
 	{

@@ -6,7 +6,7 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 02:26:02 by mmeziani          #+#    #+#             */
-/*   Updated: 2022/05/17 00:24:25 by mmeziani         ###   ########.fr       */
+/*   Updated: 2022/05/24 20:20:47 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	sort_arr(int	*str, int i)
 	}
 }
 
-void	fa(struct Node *a, int *str)
+void	fa(t_list *a, int *str)
 {
 	int	i;
 
@@ -49,35 +49,49 @@ void	fa(struct Node *a, int *str)
 	}
 	sort_arr(str, i);
 }
-
-void	above_five(struct Node **a, struct Node **b)
+void	push_to_a(t_list **a, t_list **b, t_vars v)
 {
-	int	var1;
-	int	var2;
-	int	*st;
-	int	s;
-	int	f;
+	while ((*a && (v.start || v.first != (*a)->data)))
+	{
+		if ((*a)->data <= v.var1)
+		{
+			if ((*a)->data <= v.var2)
+			{
+				pb(&*(a), &*(b));
+				rb(&*(b));
+			}
+			else
+			{
+				pb(&*(a), &*(b));
+			}
+		}
+		else
+		{
+			if(v.start)
+			{
+				v.first = (*a)->data;
+				v.start = 0;
+			}
+			ra(&*(a));
+		}
+	}
+}
+void	above_five(t_list **a, t_list **b)
+{
+	t_vars v;
 
 	while (lstsize(*a) != 0)
 	{
-		f = ((s = 1, st = malloc(lstsize(*a) * sizeof(int)), fa(*a, st)), 0);
-		var1 = ((var2 = st[(lstsize(*a) / 3) / 2]), st[lstsize(*a) / 3]);
-		while ((*a && (s || f != (*a)->data)))
-		{
-			if ((*a)->data <= var1)
-			{
-				if ((*a)->data <= var2)
-					((rb(&*(b))), pb(&*(a), &*(b)));
-				else
-					pb(&*(a), &*(b));
-			}
-			else 
-				{if (s)
-					f = ((s = 0), (*a)->data);
-			ra(&*(a));
-				}
-		}
-		free(st);
+		v.first = 0;
+		v.start = 1;
+		v.ar = malloc(lstsize(*a) * sizeof(int));
+		if (!v.ar)
+			return ;
+		fa(*a, v.ar);
+		v.var1 = v.ar[lstsize(*a) / 3];
+		v.var2 = v.ar[(lstsize(*a) / 3) / 2];
+		push_to_a(a,b,v);
+		free(v.ar);
 	}
 	while ((*b))
 		push_to_b(&*(a), &*(b));

@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   pb.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmeziani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 22:59:40 by mmeziani          #+#    #+#             */
-/*   Updated: 2022/05/14 23:05:39 by mmeziani         ###   ########.fr       */
+/*   Updated: 2022/05/22 22:49:02 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	pb(struct Node **a, struct Node **b)
+void	pb(t_list **a, t_list **b)
 {
-	struct Node	*tmp;
-
+	t_list	*tmp;
 	if ((*a) == NULL)
 	{
 		return ;

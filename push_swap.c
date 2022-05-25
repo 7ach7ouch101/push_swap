@@ -6,13 +6,13 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 23:16:06 by mmeziani          #+#    #+#             */
-/*   Updated: 2022/05/15 22:25:12 by mmeziani         ###   ########.fr       */
+/*   Updated: 2022/05/25 01:39:48 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "./push_swap.h"
 
-int	small_instack(struct Node *a)
+int	small_instack(t_list *a)
 {
 	int	tmp;
 
@@ -26,7 +26,7 @@ int	small_instack(struct Node *a)
 	return (tmp);
 }
 
-void	sort_five(struct Node **a, struct Node **b)
+void	sort_five(t_list **a, t_list **b)
 {
 	while (*a)
 	{
@@ -52,7 +52,7 @@ void	sort_five(struct Node **a, struct Node **b)
 		pa(&*(a), &*(b));
 }
 
-void	sort_three(struct Node **a)
+void	sort_three(t_list **a)
 {
 	if ((*a)->data > (*a)->next->data)
 	{
@@ -75,40 +75,39 @@ void	sort_three(struct Node **a)
 	}
 }
 
-void	sort_two(struct Node **a)
+void	sort_two(t_list **a)
 {
 	if ((*a)->data > (*a)->next->data)
 		sa(*(a));
 }
 
-// void	printnode(struct Node *s, char c)
-// {
-// 	while (s)
-// 	{
-// 		printf("stack %c after===>%d\n", c, s->data);
-// 		s = s->next;
-// 	}
-// }
+void	printnode(t_list *s, char c)
+{
+	while (s)
+	{
+		printf("stack %c after===>%d\n", c, s->data);
+		s = s->next;
+	}
+}
 
 int	main(int ac, char **av)
 {
-	struct Node	*a;
-	struct Node	*b;
+	t_list	*a;
+	t_list	*b;
 
 	b = NULL;
 	a = NULL;
 	if (parse(ac, av, &a) == 0 || is_sorted(a))
-	{
 		return (0);
-	}
 	if (lstsize(a) == 2)
 		sort_two(&a);
 	else if (lstsize(a) == 3)
 		sort_three(&a);
-	else if (lstsize(a) == 5)
+	else if (lstsize(a) <= 5)
 		sort_five (&a, &b);
 	else
 		above_five (&a, &b);
+	//printnode(a,'a');
 	freelist(&a, &b);
 	return (0);
 }
