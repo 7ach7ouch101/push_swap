@@ -33,23 +33,23 @@ void	sort_five(t_list **a, t_list **b)
 		if (lstsize(*b) == 2)
 			break ;
 		if ((*a)->data == small_instack(*a))
-			pb(&*(a), &*(b));
+			pb(&*(a), &*(b), 1);
 		else
-			ra(&*(a));
+			ra(&*(a), 1);
 	}
 	while (lstsize(*a) == 3)
 	{
 		if ((*a)->data > (*a)->next->next->data)
-			ra(&*(a));
+			ra(&*(a), 1);
 		else if ((*a)->data > (*a)->next->data)
-			sa(*(a));
+			sa(*(a), 1);
 		else if ((*a)->next->data > (*a)->next->next->data)
-			rra(&*(a));
+			rra(&*(a), 1);
 		else
 			break ;
 	}
 	while (*b)
-		pa(&*(a), &*(b));
+		pa(&*(a), &*(b), 1);
 }
 
 void	sort_three(t_list **a)
@@ -58,27 +58,27 @@ void	sort_three(t_list **a)
 	{
 		if ((*a)->next->data > (*a)->next->next->data)
 		{
-			sa(*a);
-			rra(&*(a));
+			sa(*a, 1);
+			rra(&*(a), 1);
 		}
 		else if ((*a)->data > (*a)->next->next->data)
-			ra(&*(a));
+			ra(&*(a), 1);
 		else
-			sa(*a);
+			sa(*a, 1);
 	}
 	else if ((*a)->data > (*a)->next->next->data)
-		rra(&*(a));
+		rra(&*(a), 1);
 	else
 	{
-		sa(*a);
-		ra(&*(a));
+		sa(*a, 1);
+		ra(&*(a), 1);
 	}
 }
 
 void	sort_two(t_list **a)
 {
 	if ((*a)->data > (*a)->next->data)
-		sa(*(a));
+		sa(*(a), 1);
 }
 
 void	printnode(t_list *s, char c)
@@ -107,7 +107,7 @@ int	main(int ac, char **av)
 		sort_five (&a, &b);
 	else
 		above_five (&a, &b);
-	//printnode(a,'a');
+	printnode(a,'a');
 	freelist(&a, &b);
 	return (0);
 }

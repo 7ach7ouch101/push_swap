@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	sa(t_list *a)
+void	sa(t_list *a, int s)
 {
 	int	data;
 
@@ -21,5 +21,6 @@ void	sa(t_list *a)
 	data = a->data;
 	a->data = a->next->data;
 	a->next->data = data;
-	write(1, "sa\n", 3);
+	if(s == 1)
+		write(1, "sa\n", 3);
 }

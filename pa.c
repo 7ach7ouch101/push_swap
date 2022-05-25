@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	pa(t_list **a, t_list **b)
+void	pa(t_list **a, t_list **b, int s)
 {
 	t_list	*tmp;
 
@@ -24,5 +24,6 @@ void	pa(t_list **a, t_list **b)
 	*b = tmp->next;
 	tmp->next = *a;
 	*a = tmp;
-	write (1, "pa\n", 3);
+	if(s == 1)
+		write (1, "pa\n", 3);
 }

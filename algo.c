@@ -57,12 +57,12 @@ void	push_to_a(t_list **a, t_list **b, t_vars v)
 		{
 			if ((*a)->data <= v.var2)
 			{
-				pb(&*(a), &*(b));
-				rb(&*(b));
+				pb(&*(a), &*(b), 1);
+				rb(&*(b), 1);
 			}
 			else
 			{
-				pb(&*(a), &*(b));
+				pb(&*(a), &*(b), 1);
 			}
 		}
 		else
@@ -72,7 +72,7 @@ void	push_to_a(t_list **a, t_list **b, t_vars v)
 				v.first = (*a)->data;
 				v.start = 0;
 			}
-			ra(&*(a));
+			ra(&*(a), 1);
 		}
 	}
 }

@@ -22,14 +22,17 @@ typedef struct s_vars
 
 //void	printnode(t_list *s, char c);
 void	*freee(char **p);
-void	pa(t_list **a, t_list **b);
-void	pb(t_list **a, t_list **b);
-void	ra(t_list **a);
-void	rb(t_list **b);
-void	rra(t_list **a);
-void	rrb(t_list **b);
-void    sa(t_list *head);
-void    sb(t_list *head);
+void	pa(t_list **a, t_list **b, int s);
+void	pb(t_list **a, t_list **b, int s);
+void	ra(t_list **a, int s);
+void	rb(t_list **b, int s);
+void	rra(t_list **a, int s);
+void	rrb(t_list **b, int s);
+void    sa(t_list *head, int s);
+void    sb(t_list *head, int s);
+void    ss(t_list *a, t_list *b);
+void    rr(t_list **a, t_list **b);
+void    rrr(t_list **a, t_list **b);
 int     lstsize(t_list *a);
 long	ft_atoi(char *str);
 char	**ft_split(const char *s, char c);
@@ -53,5 +56,5 @@ void	*ft_memcpy(void	*dst, const void *src, size_t n);
 char	*merge(char *s1, char *s2, char *p);
 void	above_five(t_list **a, t_list **b);
 void    p_error(void);
-void    check(char *s);
+//void    check(char *s);
 #endif

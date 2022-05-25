@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	ra(t_list **a)
+void	ra(t_list **a , int s)
 {
 	t_list	*tmp;
 	t_list	*tmp2;
@@ -26,7 +26,6 @@ void	ra(t_list **a)
 	(*a)->next = tmp;
 	(*a)->next->next = NULL;
 	*a = tmp2;
-	write(1, "ra\n", 3);
-	// free(tmp);
-	// free(tmp2);
+	if(s == 1)
+		write(1, "ra\n", 3);
 }

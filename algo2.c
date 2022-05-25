@@ -44,17 +44,17 @@ void	push_to_b(t_list **a, t_list **b)
 	if (check_for_location(lstsize(*b), *b) == 1)
 	{
 		if ((*b)->data == big_instack(*b))
-			pa(&*(a), &*(b));
+			pa(&*(a), &*(b), 1);
 		else if ((*b)->next->data == big_instack(*b))
 		{
-			sb(*(b));
-			pa(&*(a), &*(b));
+			sb(*(b), 1);
+			pa(&*(a), &*(b), 1);
 		}
 		else
-			rb(&*(b));
+			rb(&*(b), 1);
 	}
 	else if ((*b)->next == NULL)
-		pa(&*(a), &*(b));
+		pa(&*(a), &*(b), 1);
 	else
-		rrb(&*(b));
+		rrb(&*(b), 1);
 }

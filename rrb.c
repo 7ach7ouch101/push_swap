@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void	rrb(t_list **b)
+void	rrb(t_list **b, int s)
 {
 	t_list	*tmp;
 	t_list	*tmp2;
@@ -28,5 +28,6 @@ void	rrb(t_list **b)
 	(*b)->next->next = tmp;
 	(*b)->next = NULL;
 	*b = tmp2;
-	write(1, "rrb\n", 4);
+	if(s == 1)
+		write(1, "rrb\n", 4);
 }
