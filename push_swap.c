@@ -6,7 +6,7 @@
 /*   By: mmeziani <mmeziani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/14 23:16:06 by mmeziani          #+#    #+#             */
-/*   Updated: 2022/05/25 01:39:48 by mmeziani         ###   ########.fr       */
+/*   Updated: 2022/05/28 21:36:31 by mmeziani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,46 @@ int	small_instack(t_list *a)
 	return (tmp);
 }
 
+int	get_min(t_list *a, int data)
+{
+	int	i;
+
+	i = 0;
+	while (a->data != data)
+	{
+		a = a->next;
+		i++;
+	}
+	return (i);
+}
+
 void	sort_five(t_list **a, t_list **b)
 {
-	while (*a)
+	int	index;
+	int	i;
+
+	while (!is_sorted(*a))
 	{
-		if (lstsize(*b) == 2)
-			break ;
-		if ((*a)->data == small_instack(*a))
-			pb(&*(a), &*(b), 1);
+		i = 0;
+		index = get_min(*a, small_instack(*a));
+		if (index == -1)
+			return ;
+		if (index <= (lstsize(*a) / 2))
+			while (i++ < index)
+				ra(a, 1);
 		else
-			ra(&*(a), 1);
+			while (i++ < (lstsize(*a) - index))
+				rra(a, 1);
+		if (!is_sorted(*a))
+			pb(*(&a), *(&b), 1);
 	}
-	while (lstsize(*a) == 3)
+	while (*b)
+		pa(*(&a), *(&b), 1);
+}
+
+void	sort_three(t_list **a)
+{
+	while (lstsize(*a))
 	{
 		if ((*a)->data > (*a)->next->next->data)
 			ra(&*(a), 1);
@@ -47,46 +75,6 @@ void	sort_five(t_list **a, t_list **b)
 			rra(&*(a), 1);
 		else
 			break ;
-	}
-	while (*b)
-		pa(&*(a), &*(b), 1);
-}
-
-void	sort_three(t_list **a)
-{
-	if ((*a)->data > (*a)->next->data)
-	{
-		if ((*a)->next->data > (*a)->next->next->data)
-		{
-			sa(*a, 1);
-			rra(&*(a), 1);
-		}
-		else if ((*a)->data > (*a)->next->next->data)
-			ra(&*(a), 1);
-		else
-			sa(*a, 1);
-	}
-	else if ((*a)->data > (*a)->next->next->data)
-		rra(&*(a), 1);
-	else
-	{
-		sa(*a, 1);
-		ra(&*(a), 1);
-	}
-}
-
-void	sort_two(t_list **a)
-{
-	if ((*a)->data > (*a)->next->data)
-		sa(*(a), 1);
-}
-
-void	printnode(t_list *s, char c)
-{
-	while (s)
-	{
-		printf("stack %c after===>%d\n", c, s->data);
-		s = s->next;
 	}
 }
 
@@ -107,7 +95,6 @@ int	main(int ac, char **av)
 		sort_five (&a, &b);
 	else
 		above_five (&a, &b);
-	printnode(a,'a');
 	freelist(&a, &b);
 	return (0);
 }
